@@ -23,9 +23,10 @@ public class RegisterJdbc {
 	
 	public Connection myConnection() {
 		try {
+			//Database connectivity
 			Class.forName("oracle.jdbc.OracleDriver");
 			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","Newuser123");
-			//System.out.println("Connection to db...");
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -38,18 +39,16 @@ public class RegisterJdbc {
 	
 	public int saveData(List<Register> lst)
 	{
-		//System.out.println("dbsave1");
+		
 		int i=0;
-		//Account a=lst.get(0);
 		Register a=null;
 		con=myConnection();
 		try
 		{
+			//To insert the data in register table
 			Iterator<Register> itr=lst.iterator();
-			//System.out.println("dbsave2");
 			while(itr.hasNext())
 			{
-				//System.out.println("dbsave3");
 				a=itr.next();
 				ps=con.prepareStatement("insert into Register values(?,?,?,?,?,?)");
 				ps.setString(1,a.getUname());
@@ -83,6 +82,7 @@ public class RegisterJdbc {
 	}
 	public List<Register> getAllData()
 	{
+		//Using List to store the objects of Register model
 		List<Register> lst=new LinkedList<Register>();
 		con=myConnection();
 		try
